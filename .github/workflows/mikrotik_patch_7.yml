@@ -182,7 +182,7 @@ jobs:
         sudo -E python3 patch.py npk routeros-$LATEST_VERSION-$ARCH.npk
 
         sudo mkdir ./all_packages
-        sudo unzip all_packages-$ARCH-$LATEST_VERSION.zip ./all_packages
+        sudo unzip all_packages-$ARCH-$LATEST_VERSION.zip -d ./all_packages
         NPK_FILES=$(find ./all_packages/*.npk)
         for file in $NPK_FILES; do
             sudo -E python3 npk.py sign $file $file
