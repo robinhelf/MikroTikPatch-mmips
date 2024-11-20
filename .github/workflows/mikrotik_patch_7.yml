@@ -171,16 +171,17 @@ jobs:
       # if: steps.get_latest.outputs.has_new_version == 'true' && steps.cache-mikrotik.outputs.cache-hit != 'true'
       run: |
           sudo wget -nv -O routeros-$LATEST_VERSION-$ARCH.npk https://download.mikrotik.com/routeros/$LATEST_VERSION/routeros-$LATEST_VERSION-$ARCH.npk
-           sudo wget -nv -O all_packages-$ARCH-$LATEST_VERSION.zip https://download.mikrotik.com/routeros/$LATEST_VERSION/all_packages-$ARCH-$LATEST_VERSION.zip
           # https://download.mikrotik.com/routeros/7.16.1/routeros-7.16.1-mmips.npk
-          # https://download.mikrotik.com/routeros/7.16.1/all_packages-mmips-7.16.1.zip
-
 
     - name: Patch routeros-${{ env.LATEST_VERSION }}-${{ env.ARCH }}.npk
       # if: steps.get_latest.outputs.has_new_version == 'true'
       run: |
         sudo -E python3 patch.py npk routeros-$LATEST_VERSION-$ARCH.npk
 
+    - name: Patch all_packages-${{ env.LATEST_VERSION }}-${{ env.ARCH }}.zip
+      run: |
+        # https://download.mikrotik.com/routeros/7.16.1/all_packages-mmips-7.16.1.zip
+        sudo wget -nv -O all_packages-$ARCH-$LATEST_VERSION.zip https://download.mikrotik.com/routeros/$LATEST_VERSION/all_packages-$ARCH-$LATEST_VERSION.zip
         sudo mkdir ./all_packages
         sudo unzip all_packages-$ARCH-$LATEST_VERSION.zip -d ./all_packages
         NPK_FILES=$(find ./all_packages/*.npk)
