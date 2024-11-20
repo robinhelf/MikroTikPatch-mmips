@@ -236,5 +236,5 @@ jobs:
         tag_name: ${{ env.LATEST_VERSION }}-${{ env.ARCH }}
         files: |
           routeros-${{ env.LATEST_VERSION }}-${{ env.ARCH }}.npk
-          all_packages-$ARCH-$LATEST_VERSION.zip
+          all_packages-*-*.zip
 
