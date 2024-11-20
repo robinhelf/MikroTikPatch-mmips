@@ -46,7 +46,7 @@ jobs:
         channel: [stable]
     env:
       TZ: 'Asia/Shanghai'
-      LATEST_VERSION: "7.16"
+      LATEST_VERSION: "7.16.1"
       ARCH: "mmips"
 
     steps:
