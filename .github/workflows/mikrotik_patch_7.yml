@@ -180,6 +180,8 @@ jobs:
       # if: steps.get_latest.outputs.has_new_version == 'true'
       run: |
         sudo -E python3 patch.py npk routeros-$LATEST_VERSION-$ARCH.npk
+
+        sudo mkdir ./all_packages
         sudo unzip all_packages-$ARCH-$LATEST_VERSION.zip ./all_packages
         NPK_FILES=$(find ./all_packages/*.npk)
         for file in $NPK_FILES; do
