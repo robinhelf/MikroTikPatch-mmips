@@ -178,20 +178,16 @@ jobs:
     - name: Patch routeros-${{ env.LATEST_VERSION }}-${{ env.ARCH }}.npk
       # if: steps.get_latest.outputs.has_new_version == 'true'
       run: |
-        
-        # sudo mv ./new_iso/routeros-$LATEST_VERSION$ARCH.npk ./
         sudo -E python3 patch.py npk routeros-$LATEST_VERSION-$ARCH.npk
-        # NPK_FILES=$(find ./new_iso/*.npk)
-        # for file in $NPK_FILES; do
-        #     sudo -E python3 npk.py sign $file $file
-        # done
-       
-        # sudo mkdir ./all_packages
-        # sudo cp ./new_iso/*.npk ./all_packages/
-        # sudo rm -rf ./new_iso
-        # cd ./all_packages
-        # sudo zip ../all_packages-${{ matrix.arch }}-$LATEST_VERSION.zip *.npk
-        # cd ..
+        sudo unzip all_packages-$ARCH-$LATEST_VERSION.zip ./all_packages
+        NPK_FILES=$(find ./all_packages/*.npk)
+        for file in $NPK_FILES; do
+            sudo -E python3 npk.py sign $file $file
+        done
+
+        cd ./all_packages
+        sudo zip ../all_packages-$ARCH-$LATEST_VERSION.zip *.npk
+        cd ..
 
     - name: Cache refind
       if: steps.get_latest.outputs.has_new_version == 'true' && matrix.arch == 'x86'
