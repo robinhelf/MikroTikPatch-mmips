@@ -42,8 +42,10 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        arch: [arm,x86,mmips,arm64]
-        channel: [stable,testing]
+        #arch: [arm,x86,mmips,arm64]
+        #channel: [stable,testing]
+        arch: [mmips]
+        channel: [stable]
     env:
       TZ: 'Asia/Shanghai'
       LATEST_VERSION: ""
